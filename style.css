@@ -201,6 +201,8 @@ input[type="date"]:focus, input[type="text"]:focus, input[type="number"]:focus {
 
 .travel-arrow { text-align: center; color: var(--muted); }
 
+.field-label { display: none; }
+
 .btn-icon {
   background: none;
   border: none;
@@ -324,10 +326,23 @@ tr.current-year { background: var(--accent-light); }
   .travel-row {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
+      "label-from label-to"
       "from to"
       "note remove";
+    padding-bottom: 0.85rem;
+    margin-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border);
   }
+  .travel-row:last-of-type { border-bottom: none; margin-bottom: 0.5rem; }
   .travel-row .travel-arrow { display: none; }
+  .field-label {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+  }
+  .travel-row .field-label-from { grid-area: label-from; }
+  .travel-row .field-label-to { grid-area: label-to; }
   .travel-row .travel-from { grid-area: from; }
   .travel-row .travel-to { grid-area: to; }
   .travel-row .travel-note { grid-area: note; }
