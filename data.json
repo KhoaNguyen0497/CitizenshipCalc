@@ -1,0 +1,15 @@
+{
+  "_comment": "Fill in your real dates/travel below. Dates use YYYY-MM-DD. This file is only read to prefill the page on load - the page never writes back to it.",
+
+  "residencyDate": "",
+  "citizenshipDate": "",
+
+  "travels": [],
+
+  "requirements": {
+    "_comment": "Default values are the standard NZ citizenship presence requirements. Double check these against govt.nz before relying on them - the page also lets you override them in the 'Requirements' panel without editing this file.",
+    "windowYears": 5,
+    "totalDaysRequired": 1350,
+    "yearlyDaysRequired": 240
+  }
+}

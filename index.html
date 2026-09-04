@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en-NZ">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NZ Citizenship Presence Calculator</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+
+  <header class="page-header">
+    <h1>NZ Citizenship Presence Calculator</h1>
+    <p class="subtitle">
+      Tracks the presence requirement for NZ citizenship: enough days in New Zealand across the
+      5 years before you apply, with a minimum in each of those years. See
+      <a href="https://www.govt.nz/browse/passports-citizenship-and-identity/nz-citizenship/requirements-for-nz-citizenship/presence-requirements/" target="_blank" rel="noopener">govt.nz</a>
+      for the official rules - this is a personal planning tool, not legal advice.
+    </p>
+  </header>
+
+  <div id="errors" class="error-box" hidden></div>
+
+  <section class="card">
+    <h2>Key dates</h2>
+    <div class="dates-grid">
+      <div class="field">
+        <label for="residency-date">Residency date</label>
+        <input type="date" id="residency-date">
+        <p class="hint">The day you became a permanent resident. Any day before this always counts as not in NZ.</p>
+      </div>
+      <div class="field">
+        <label for="citizenship-date">Citizenship application date</label>
+        <input type="date" id="citizenship-date">
+        <p class="hint">The date you plan to apply. The 5-year window is counted backwards from here.</p>
+      </div>
+    </div>
+
+    <div class="date-callouts">
+      <div class="callout">
+        <div class="callout-label">Recommended date</div>
+        <div class="callout-value" id="recommended-date">–</div>
+        <div class="callout-note">Residency date + 5 years.</div>
+        <button type="button" class="btn-link" id="use-recommended">Use this date</button>
+      </div>
+      <div class="callout">
+        <div class="callout-label">Earliest eligible date</div>
+        <div class="callout-value" id="earliest-date">–</div>
+        <div class="callout-note" id="earliest-date-note">Based on your travel history.</div>
+        <button type="button" class="btn-link" id="use-earliest">Use this date</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Travel</h2>
+    <p class="hint">The day you leave and the day you arrive back both count as days in NZ. Only full days abroad in between count against you.</p>
+    <div class="travel-rows-header">
+      <span>Left NZ</span><span></span><span>Back in NZ</span><span>Note</span><span></span>
+    </div>
+    <div id="travel-rows"></div>
+    <button type="button" class="btn-secondary" id="add-travel">+ Add travel</button>
+  </section>
+
+  <section id="results" class="card" hidden>
+    <h2>5-year summary</h2>
+    <p class="hint" id="window-range"></p>
+
+    <div class="stat-grid">
+      <div class="stat">
+        <div class="stat-value" id="stat-total-in-nz">0</div>
+        <div class="stat-label">Days in NZ</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-total-required">0</div>
+        <div class="stat-label">Days required</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-total-out">0</div>
+        <div class="stat-label">Days out of NZ</div>
+      </div>
+      <div class="stat">
+        <div class="stat-value" id="stat-remaining-out">0</div>
+        <div class="stat-label">Days you can still be out</div>
+      </div>
+    </div>
+    <p>Overall status: <span id="overall-status"></span></p>
+
+    <h3>Year-by-year breakdown</h3>
+    <p class="hint scroll-hint">Swipe sideways to see all columns.</p>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Year</th>
+            <th>Period</th>
+            <th>Days</th>
+            <th>In NZ</th>
+            <th>Out</th>
+            <th>Required</th>
+            <th>Allowed out</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="year-table-body"></tbody>
+      </table>
+    </div>
+    <p class="hint">"Days still allowed out" is the smaller of what's left of that year's own allowance and what's left of the whole 5-year allowance - going over either one puts you over limit.</p>
+  </section>
+
+  <section class="card">
+    <h2>Requirements</h2>
+    <p class="hint">Defaults match the standard NZ rule. Adjust here if the rule changes or differs in your case.</p>
+    <div class="dates-grid">
+      <div class="field">
+        <label for="req-total-days">Total days required (per window)</label>
+        <input type="number" id="req-total-days" min="0">
+      </div>
+      <div class="field">
+        <label for="req-yearly-days">Days required per year</label>
+        <input type="number" id="req-yearly-days" min="0">
+      </div>
+      <div class="field">
+        <label for="req-window-years">Window length (years)</label>
+        <input type="number" id="req-window-years" min="1">
+      </div>
+    </div>
+  </section>
+
+  <footer class="page-footer">
+    <p>Data is loaded once from <code>data.json</code> to prefill these fields; nothing is saved back to it. Edit that file to update your defaults.</p>
+  </footer>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
