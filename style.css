@@ -116,6 +116,8 @@ input[type="date"], input[type="text"], input[type="number"] {
   border-radius: 8px;
   background: #fff;
   color: var(--ink);
+  width: 100%;
+  min-width: 0;
 }
 
 input[type="date"]:focus, input[type="text"]:focus, input[type="number"]:focus {
@@ -326,9 +328,10 @@ tr.current-year { background: var(--accent-light); }
   .travel-row {
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
+      "remove remove"
       "label-from label-to"
       "from to"
-      "note remove";
+      "note note";
     padding-bottom: 0.85rem;
     margin-bottom: 0.85rem;
     border-bottom: 1px solid var(--border);
