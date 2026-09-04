@@ -1,7 +1,7 @@
 {
   "_comment": "Fill in your real dates/travel below. Dates use YYYY-MM-DD. This file is only read to prefill the page on load - the page never writes back to it.",
 
-  "residencyDate": "",
+  "residencyDate": "2022-04-22",
   "citizenshipDate": "",
 
   "travels": [
