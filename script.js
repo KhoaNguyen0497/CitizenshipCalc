@@ -175,6 +175,7 @@ let travelIdCounter = 0;
 function addTravelRow(from = '', to = '', note = '') {
   state.travels.push({ id: ++travelIdCounter, from, to, note });
   renderTravelRows();
+  recalculate();
 }
 
 function removeTravelRow(id) {
@@ -199,6 +200,7 @@ function renderTravelRows() {
       <input type="date" class="travel-to" value="${t.to || ''}" aria-label="Back in NZ on">
       <input type="text" class="travel-note" placeholder="Note (optional)" value="${escapeHtml(t.note || '')}" aria-label="Note">
       <button type="button" class="btn-icon remove-travel" title="Remove">&times;</button>
+      <p class="travel-caption"></p>
     `;
     row.querySelector('.travel-from').addEventListener('change', e => { t.from = e.target.value; recalculate(); });
     row.querySelector('.travel-to').addEventListener('change', e => { t.to = e.target.value; recalculate(); });
@@ -230,13 +232,32 @@ function fmtSigned(n) {
   return (n > 0 ? '+' : '') + n;
 }
 
+function refreshTravelCaptions() {
+  document.querySelectorAll('.travel-row').forEach(row => {
+    const from = parseISODate(row.querySelector('.travel-from').value);
+    const to = parseISODate(row.querySelector('.travel-to').value);
+    const caption = row.querySelector('.travel-caption');
+    if (from && to && to >= from) {
+      const daysOut = Math.max(0, epochDay(to) - epochDay(from) - 1);
+      caption.textContent = `${formatDateLong(from)} → ${formatDateLong(to)} · ${daysOut} day${daysOut === 1 ? '' : 's'} outside NZ`;
+    } else if (from || to) {
+      caption.textContent = 'Enter both dates to see the trip length.';
+    } else {
+      caption.textContent = '';
+    }
+  });
+}
+
 function recalculate() {
+  refreshTravelCaptions();
+
   const errorsEl = document.getElementById('errors');
   errorsEl.innerHTML = '';
   const errors = [];
 
   const residencyDate = parseISODate(document.getElementById('residency-date').value);
   let citizenshipDate = parseISODate(document.getElementById('citizenship-date').value);
+  document.getElementById('residency-date-confirm').textContent = residencyDate ? formatDateLong(residencyDate) : '';
 
   const req = {
     windowYears: state.requirements.windowYears,
@@ -257,6 +278,7 @@ function recalculate() {
     citizenshipDate = addYears(residencyDate, req.windowYears);
     document.getElementById('citizenship-date').value = toISODate(citizenshipDate);
   }
+  document.getElementById('citizenship-date-confirm').textContent = citizenshipDate ? formatDateLong(citizenshipDate) : '';
   if (!citizenshipDate) {
     errors.push('Citizenship application date is not a valid date.');
     renderErrors(errors);
