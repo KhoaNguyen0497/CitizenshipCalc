@@ -4,7 +4,22 @@
   "residencyDate": "",
   "citizenshipDate": "",
 
-  "travels": [],
+  "travels": [
+    { "from": "2022-12-14", "to": "2023-01-04", "note": "" },
+    { "from": "2023-07-06", "to": "2023-08-12", "note": "" },
+    { "from": "2023-12-18", "to": "2024-02-24", "note": "" },
+    { "from": "2024-09-20", "to": "2024-10-31", "note": "" },
+    { "from": "2025-01-10", "to": "2025-02-12", "note": "" },
+    { "from": "2025-02-27", "to": "2025-03-10", "note": "" },
+    { "from": "2025-03-21", "to": "2025-04-04", "note": "" },
+    { "from": "2025-06-20", "to": "2025-07-06", "note": "" },
+    { "from": "2025-08-02", "to": "2025-09-07", "note": "" },
+    { "from": "2026-02-07", "to": "2026-03-01", "note": "" },
+    { "from": "2026-03-18", "to": "2026-04-13", "note": "" },
+    { "from": "2026-08-14", "to": "2026-09-06", "note": "" },
+    { "from": "2026-09-19", "to": "2026-10-12", "note": "" },
+    { "from": "2026-12-01", "to": "2026-12-21", "note": "" }
+  ],
 
   "requirements": {
     "_comment": "Default values are the standard NZ citizenship presence requirements. Double check these against govt.nz before relying on them - the page also lets you override them in the 'Requirements' panel without editing this file.",
