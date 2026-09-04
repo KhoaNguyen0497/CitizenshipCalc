@@ -79,10 +79,9 @@ body {
 }
 
 .travel-caption {
-  grid-column: 1 / -1;
   color: var(--muted);
   font-size: 0.78rem;
-  margin: -0.15rem 0 0.5rem;
+  margin: 0.3rem 0 0.5rem;
 }
 
 .error-box {
@@ -185,23 +184,37 @@ input[type="date"]:focus, input[type="text"]:focus, input[type="number"]:focus {
 .btn-secondary:hover { background: var(--accent); color: #fff; }
 
 .travel-rows-header {
-  display: grid;
-  grid-template-columns: 1fr 1.5rem 1fr 1fr 2rem;
+  display: flex;
+  align-items: center;
   gap: 0.5rem;
   font-size: 0.8rem;
   color: var(--muted);
   padding: 0 0 0.35rem;
 }
 
-.travel-row {
-  display: grid;
-  grid-template-columns: 1fr 1.5rem 1fr 1fr 2rem;
-  gap: 0.5rem;
+.travel-row { margin-bottom: 0.5rem; }
+
+.travel-fields {
+  display: flex;
   align-items: center;
-  margin-bottom: 0.5rem;
+  gap: 0.5rem;
 }
 
-.travel-arrow { text-align: center; color: var(--muted); }
+.travel-field,
+.travel-rows-header .travel-field {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.travel-arrow,
+.travel-rows-header .travel-arrow {
+  flex: 0 0 1.5rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.remove-travel { flex: 0 0 auto; }
+.travel-rows-header .remove-travel { flex: 0 0 1.75rem; }
 
 .field-label { display: none; }
 
@@ -325,29 +338,29 @@ tr.current-year { background: var(--accent-light); }
 @media (max-width: 480px) {
   .scroll-hint { display: block; }
   .travel-rows-header { display: none; }
+
   .travel-row {
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas:
-      "remove remove"
-      "label-from label-to"
-      "from to"
-      "note note";
     padding-bottom: 0.85rem;
     margin-bottom: 0.85rem;
     border-bottom: 1px solid var(--border);
   }
   .travel-row:last-of-type { border-bottom: none; margin-bottom: 0.5rem; }
-  .travel-row .travel-arrow { display: none; }
+
+  .travel-fields { flex-wrap: wrap; }
+  .travel-fields .travel-arrow { display: none; }
+  .travel-field { flex: 1 1 40%; }
+  .travel-field-note { flex: 1 1 100%; }
+
   .field-label {
     display: block;
     font-size: 0.75rem;
     color: var(--muted);
     margin-bottom: 0.2rem;
   }
-  .travel-row .field-label-from { grid-area: label-from; }
-  .travel-row .field-label-to { grid-area: label-to; }
-  .travel-row .travel-from { grid-area: from; }
-  .travel-row .travel-to { grid-area: to; }
-  .travel-row .travel-note { grid-area: note; }
-  .travel-row .remove-travel { grid-area: remove; justify-self: end; }
+
+  .remove-travel {
+    order: -1;
+    flex: 1 1 100%;
+    text-align: right;
+  }
 }

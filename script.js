@@ -195,13 +195,21 @@ function renderTravelRows() {
     const row = document.createElement('div');
     row.className = 'travel-row';
     row.innerHTML = `
-      <span class="field-label field-label-from">Left NZ</span>
-      <input type="date" class="travel-from" value="${t.from || ''}" aria-label="Left NZ on">
-      <span class="travel-arrow">&rarr;</span>
-      <span class="field-label field-label-to">Back in NZ</span>
-      <input type="date" class="travel-to" value="${t.to || ''}" aria-label="Back in NZ on">
-      <input type="text" class="travel-note" placeholder="Note (optional)" value="${escapeHtml(t.note || '')}" aria-label="Note">
-      <button type="button" class="btn-icon remove-travel" title="Remove">&times;</button>
+      <div class="travel-fields">
+        <div class="travel-field">
+          <span class="field-label">Left NZ</span>
+          <input type="date" class="travel-from" value="${t.from || ''}" aria-label="Left NZ on">
+        </div>
+        <span class="travel-arrow">&rarr;</span>
+        <div class="travel-field">
+          <span class="field-label">Back in NZ</span>
+          <input type="date" class="travel-to" value="${t.to || ''}" aria-label="Back in NZ on">
+        </div>
+        <div class="travel-field travel-field-note">
+          <input type="text" class="travel-note" placeholder="Note (optional)" value="${escapeHtml(t.note || '')}" aria-label="Note">
+        </div>
+        <button type="button" class="btn-icon remove-travel" title="Remove">&times;</button>
+      </div>
       <p class="travel-caption"></p>
     `;
     row.querySelector('.travel-from').addEventListener('change', e => { t.from = e.target.value; recalculate(); });
